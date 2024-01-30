@@ -11,23 +11,8 @@
 
 (function() {
     'use strict';
-    //createButtonCSS();
     createButton();
 })();
-
-/*function createButtonCSS() {
-    var btn1_css = document.createElement('style');
-    btn1_css.type = 'text/css';
-    btn1_css.innerHTML = `#gm_gotobottom{all:initial;position:fixed;bottom:20%;right:31px;width:12px;background-color:#f7f7f7;border:1px solid grey;
-    color:black;border-radius:3px;font-size:12px;padding:3px;cursor:pointer;}`
-    if (self === top){document.head.appendChild(btn1_css);}
-
-    var btn2_css = document.createElement('style');
-    btn2_css.type = 'text/css';
-    btn2_css.innerHTML = `#gm_gototop{all:initial;position:fixed;bottom:20%;right:12px;width:12px;background-color:#f7f7f7;border:1px solid grey;
-    color:black;border-radius:3px;font-size:12px;padding:3px;cursor:pointer;}`
-    if (self === top){document.head.appendChild(btn2_css);}
-}*/
 
 function createButton() {
     var btn1 =document.createElement('div');
