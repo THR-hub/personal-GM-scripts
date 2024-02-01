@@ -3,7 +3,7 @@
 // @version      1.0
 // @description  当User-Agent信息为桌面端时，百度移动版自动跳转桌面版，特别适合安卓平板火狐。
 // @author       T_H_R
-// @icon         https://psstatic.cdn.bcebos.com/video/wiseindex/aa6eef91f8b5b1a33b454c401_1660835115000.png
+// @icon         https://www.baidu.com/favicon.ico
 // @match        *://m.baidu.com/s*
 // @license      MIT
 // @grant        none
