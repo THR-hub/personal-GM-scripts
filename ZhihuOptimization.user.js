@@ -11,11 +11,7 @@
 
 (function() {
     'use strict';
-    var noBreakFlag=0,continueFlag=0;
-    var loop=()=>{
-        var title=document.title;
-        var search_ans=title.search(/条消息\) /);
-        if(search_ans+1)document.title=title.slice(search_ans+5);}
+    var loop=()=>{document.title=document.title.match(/.+(消息|私信)\) ?(.*)/)[2]};
     var interval=setInterval(loop,200);
     setTimeout(()=>clearInterval(interval),2000);
 })();
