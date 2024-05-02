@@ -26,6 +26,7 @@ function createButton() {
     // 暂且保留两种写法，因为我也不知道那种比较好
     var btn1 = document.createElement('div');
     btn1.id='btnToEnd';
+    btn1.className='button_GM';
     btn1.style=`all:initial;position:fixed;bottom:20%;right:31px;width:12px;
         border:1px solid;border-radius:3px;font-size:12px;padding:3px;cursor:pointer;`;
     btn1.innerHTML='去往底部'
@@ -33,7 +34,7 @@ function createButton() {
     document.body.appendChild(btn1);
 
     var btn2 =document.createElement('div');
-    btn2.innerHTML = `<div id='btnToTop' style='all:initial;position:fixed;bottom:20%;right:12px;width:12px;
+    btn2.innerHTML = `<div id='btnToTop' class='button_GM' style='all:initial;position:fixed;bottom:20%;right:12px;width:12px;
         border:1px solid;border-radius:3px;font-size:12px;padding:3px;cursor:pointer;'>回到顶部</div>`;
     btn2.onclick = () => window.scrollTo({top:0,behavior:'smooth'});
     document.body.appendChild(btn2);
