@@ -5,6 +5,7 @@
 // @description  在网页右边增加回到顶部的按钮
 // @author       T_H_R
 // @match        *://*/*
+// @exclude      *://profiler.firefox.com/*
 // @noframes
 // @grant        GM_registerMenuCommand
 // ==/UserScript==
