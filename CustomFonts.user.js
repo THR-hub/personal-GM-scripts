@@ -28,17 +28,17 @@ let customFontUI = GM_getValue('customFontUI');
 
 // Firefox里sans-serif、system-ui无效，前者可设默认字体，后者无解。Chrome未测试。
 function newCSS(toBeDef, toDef, td2='') { // 不知道为什么Arial总是调用微软雅黑，先写个td2凑合吧
-  return `@font-face{font-family:"${toBeDef}";font-weight:1 1000;src:local("${toDef}")${tbd2}}
-@font-face{font-family:"${toBeDef}";font-weight:1 300;src:local("${toDef} Light")${tbd2}}
-@font-face{font-family:"${toBeDef}";font-weight:400 500;src:local("${toDef}")${tbd2}}
-@font-face{font-family:"${toBeDef}";font-weight:600 1000;src:local("${toDef} Bold")${tbd2}}
-@font-face{font-family:"${toBeDef}";font-weight:100 200;src:local("${toDef} XLight")${tbd2}}
-@font-face{font-family:"${toBeDef}";font-weight:300;src:local("${toDef} Light")${tbd2}}
-@font-face{font-family:"${toBeDef}";font-weight:400 500;src:local("${toDef}")${tbd2}}
-@font-face{font-family:"${toBeDef}";font-weight:600;src:local("${toDef} SemiBold")${tbd2}}
-@font-face{font-family:"${toBeDef}";font-weight:700 1000;src:local("${toDef} Bold")${tbd2}}
-`};
-let _css=newCSS('Arial', customFont, ',local(\"Arial\")')
+  return `@font-face{font-family:"${toBeDef}";font-weight:1 1000;src:local("${toDef}")${td2}}
+@font-face{font-family:"${toBeDef}";font-weight:1 300;src:local("${toDef} Light")${td2}}
+@font-face{font-family:"${toBeDef}";font-weight:400 500;src:local("${toDef}")${td2}}
+@font-face{font-family:"${toBeDef}";font-weight:600 1000;src:local("${toDef} Bold")${td2}}
+@font-face{font-family:"${toBeDef}";font-weight:100 200;src:local("${toDef} XLight")${td2}}
+@font-face{font-family:"${toBeDef}";font-weight:300;src:local("${toDef} Light")${td2}}
+@font-face{font-family:"${toBeDef}";font-weight:400 500;src:local("${toDef}")${td2}}
+@font-face{font-family:"${toBeDef}";font-weight:600;src:local("${toDef} SemiBold")${td2}}
+@font-face{font-family:"${toBeDef}";font-weight:700 1000;src:local("${toDef} Bold")${td2}}
+`;}
+let _css = newCSS('Arial', customFont, ',local(\"Arial\")');
 for (let s of GM_getValue('replaceFont').concat('sans-serif')) {
   _css += newCSS(s, customFont);
 }
