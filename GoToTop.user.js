@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         网页回到顶部
 // @namespace    https://tampermonkey.net/
-// @version      0.1.3
+// @version      0.1.4
 // @description  在网页右边增加回到顶部的按钮
 // @author       T_H_R
 // @match        *://*/*
@@ -27,8 +27,7 @@ function createButton() {
     var btn1 = document.createElement('div');
     btn1.id='btnToEnd';
     btn1.className='button_GM';
-    //btn1.style=`all:initial;position:fixed;bottom:20%;right:31px;width:12px;
-    //    border:1px solid grey;border-radius:3px;font-size:12px;padding:3px;cursor:pointer;`;
+    btn1.lang='zh-Hans-CN';
     btn1.style=`all:initial;position:fixed;bottom:20%;right:2.6em;width:1em;
         border:0.1em solid grey;border-radius:0.25em;font-size:12px;padding:0.25em;cursor:pointer;`;
     btn1.innerHTML='去往底部';
@@ -44,8 +43,7 @@ function createButton() {
     var btn2 =document.createElement('div');
     btn2.id='btnToTop';
     btn2.className='button_GM';
-    //btn2.style=`all:initial;position:fixed;bottom:20%;right:12px;width:12px;
-    //    border:1px solid grey;border-radius:3px;font-size:12px;padding:3px;cursor:pointer;`;
+    btn2.lang='zh-Hans-CN';
     btn2.style=`all:initial;position:fixed;bottom:20%;right:1em;width:1em;
         border:0.1em solid grey;border-radius:0.25em;font-size:12px;padding:0.25em;cursor:pointer;`;
     btn2.innerHTML='回到顶部';
