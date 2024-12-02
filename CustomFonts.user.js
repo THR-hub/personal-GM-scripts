@@ -3,7 +3,7 @@
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
-// @version     1.0
+// @version     1.1
 // @author      T_H_R
 // @grant       GM_setValue
 // @grant       GM_getValue
