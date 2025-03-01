@@ -18,16 +18,16 @@ GM_addStyle(`@media(prefers-color-scheme:light){.button_GM{background-color:#f7f
 @media(prefers-color-scheme:dark){.button_GM{background-color:#333 !important;color:white !important;}}`);
 
 GM_addStyle(`.button_GM{all:initial;display:inline-block;font-size:12px;block-size:auto;border:1px solid grey;border-radius:3px;padding:3px;
-  writing-mode:vertical-rl;letter-spacing:.3em;cursor:pointer;position:fixed;bottom:20%;}#btnToEnd_GM{right:1em;}#btnToTop_GM{right:2.8em;}`)
+  writing-mode:vertical-rl;letter-spacing:.3em;cursor:pointer;position:fixed;bottom:20%;}#btnToEnd_GM{right:2.8em;}#btnToTop_GM{right:1em;}`)
 
 GM_registerMenuCommand('本次隐藏',hideButton);
 
-function createBtn(id,func) {
+function createBtn(id,content,func) {
   let btn = document.createElement('div');
   btn.id=id;
   btn.className='button_GM';
   btn.lang='zh-Hans-CN';
-  btn.innerHTML='去往底部';
+  btn.innerHTML=content;
   btn.onclick=func;
   document.body.appendChild(btn);
 }
@@ -38,5 +38,5 @@ function hideButton() {
 }
 
 
-createBtn('btnToTop_GM',()=>window.scrollTo({top:0,behavior:'smooth'}));
-createBtn('btnToEnd_GM',()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'}));
+createBtn('btnToTop_GM','回到顶部',()=>window.scrollTo({top:0,behavior:'smooth'}));
+createBtn('btnToEnd_GM','去往底部',()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'}));
