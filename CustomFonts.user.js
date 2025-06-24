@@ -22,7 +22,7 @@ if (browser === 'firefox') {
 
   GM_addStyle(replaceFont.map((font) => `@font-face{font-family:"${font}";src:local("null")}`).join('\n'));
 
-  if (document.URL.substring(11, 22) === '.zhihu.com/') GM_addStyle('body{font-family:sans-serif}') // 知乎不知道为什么还是会用Arial显示，先凑合着
+  if (/^https:\/\/.+\.zhihu.com\//.test(document.URL)) GM_addStyle('body{font-family:sans-serif}') // 知乎不知道为什么还是会用Arial显示，先凑合着
 
 }
 
