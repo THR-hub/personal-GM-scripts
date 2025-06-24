@@ -2,30 +2,47 @@
 // @name        网页字体替换
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
-// @version     1.3
+// @version     1.4
 // @author      T_H_R
-// @grant       GM_setValue
 // @grant       GM_getValue
 // @grant       GM_addStyle
-// @description 将网站自定义字体替换为默认字体。懒得做图形配置界面，请自行写入配置（Violent Monkey可以编辑脚本-修改数据）。首次运行会生成默认配置，可供参考。
+// @description 禁止网站使用某些字体，依赖某些未定义行为。\n已知问题：Firefox上网页字体设为system-ui时无效；Chrome支持不完善；Safari未作测试。
 // ==/UserScript==
 
 'use strict';
 
-if(GM_getValue('replaceFont') === undefined) {
-  // ONLY FOR TEST. 不绕过浏览器暂时没法修改system-ui，但是可以修改ui-sans-serif。
-  //GM_setValue('customFontUI', 'IBM Plex Sans SC');
-  //GM_setValue('rule', {" Thin":"100"," ExtLt":"200"," Light":"300","":"400"," Medm":"500"," SmBld":"600"," Bold":"700 1000"});
-  GM_setValue('replaceFont', ['Noto Sans CJK SC', 'PingFang SC']);
+const browser = (/Firefox/.test(navigator.userAgent)) ? 'firefox' : 'chrome';
+
+const replaceFont = ['Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '微軟正黑體', 'Noto Sans CJK SC', 'PingFang SC',
+                     'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR',
+                     'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display',
+                     'SimSun','宋体', 'SimHei', '黑体'];
+
+if (browser === 'firefox') {
+
+  GM_addStyle(replaceFont.map((font) => `@font-face{font-family:"${font}";src:local("null")}`).join('\n'));
+
+  if (document.URL.substring(11, 22) === '.zhihu.com/') GM_addStyle('body{font-family:sans-serif}') // 知乎不知道为什么还是会用Arial显示，先凑合着
+
 }
 
-let css = '';
-for (let s of GM_getValue('replaceFont')) {
-  css += `@font-face{font-family:"${s}";src:local("null")}\n`;
+else if (browser === 'chrome') {
+
+  // 判断默认字体
+  // 仅适用Chrome，在Firefox上返回的结果是sans-serif或serif
+  const tempElement = document.createElement('div');
+  tempElement.style.fontFamily = 'initial';
+  document.body.appendChild(tempElement);
+  const defaultFont = window.getComputedStyle(tempElement).fontFamily; // 注意这里返回的字符串已经包含了一对双引号
+  document.body.removeChild(tempElement);
+
+  // chrome对可变字体支持有问题，多字重实现起来也很麻烦，因此这段代码不能完全正常工作（非可变字体只有400字重，可变字体只有最小字重）。
+  GM_addStyle(replaceFont.map((font) => `@font-face{font-family:"${font}";src:local(${defaultFont})}`).join('\n'));
+
 }
 
-//for (let s in GM_getValue('rule')) {
-//  css += `@font-face{font-family:"ui-sans-serif";font-weight:${GM_getValue('rule')[s]};src:local("${GM_setValue('customFontUI')}${s}")}\n`;
-//}
-
-GM_addStyle(css);
+const shadow = GM_getValue("shadow");
+if (shadow.enable) {
+  // some css styles: 0.16px 0.01em 0.01em 0.02em #707070||0.24px 0 0 0.02em #80808033||- 0 0 0.3px #ACACAC||calc(calc(40px - 1em) / 170) - - - -
+  GM_addStyle(`* {-webkit-text-stroke-width: ${shadow.stroke};text-shadow: ${shadow.offsetX} ${shadow.offsetY} ${shadow.blur} ${shadow.color};}`);
+}
