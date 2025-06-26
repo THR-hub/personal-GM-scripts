@@ -6,7 +6,7 @@
 // @author      T_H_R
 // @grant       GM_getValue
 // @grant       GM_addStyle
-// @description 禁止网站使用某些字体，依赖某些未定义行为。\n已知问题：Firefox上网页字体设为system-ui时无效；Chrome支持不完善；Safari未作测试。
+// @description 禁止网站使用某些字体，依赖某些未定义行为。\n已知问题：Firefox上网页字体设为system-ui时无效；Firefox上无法替换Arial；默认为微软雅黑时无法替换雅黑（无影响）；Chrome支持不完善；Safari未作测试。
 // ==/UserScript==
 
 'use strict';
@@ -36,7 +36,7 @@ else if (browser === 'chrome') {
   const defaultFont = window.getComputedStyle(tempElement).fontFamily; // 注意这里返回的字符串已经包含了一对双引号
   document.body.removeChild(tempElement);
 
-  // chrome对可变字体支持有问题，多字重实现起来也很麻烦，因此这段代码不能完全正常工作（非可变字体只有400字重，可变字体只有最小字重）。
+  // chrome对可变字体支持有问题，多字重实现起来也很麻烦，因此这段代码不能完全正常工作（非可变字体只有400字重，部分可变字体只有最小字重）。Windows自带的Noto正常。
   GM_addStyle(replaceFont.map((font) => `@font-face{font-family:"${font}";src:local(${defaultFont})}`).join('\n'));
 
 }
