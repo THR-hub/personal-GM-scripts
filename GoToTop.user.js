@@ -17,7 +17,7 @@
 GM_addStyle(`@media(prefers-color-scheme:light){#btn_p_GM{background-color:#f7f7f7 !important;color:black !important;}}
 @media(prefers-color-scheme:dark){#btn_p_GM{background-color:#333 !important;color:white !important;}}`);
 
-GM_addStyle(`#btn_p_GM{all:initial;display:inline-block;font-size:12px !important;font-family:微软雅黑;
+GM_addStyle(`#btn_p_GM{all:initial;display:inline-block;font-size:12px !important;
   writing-mode:vertical-rl;letter-spacing:.3em;cursor:pointer;position:fixed;bottom:20%;right:1em;z-index:1000}
   .btn_c_GM{block-size:auto !important;border:.1em solid grey;border-radius:.3em;padding:.3em;position:relative}
   #btn_2_GM{right:-1px}`); //边框重叠
