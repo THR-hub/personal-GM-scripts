@@ -13,10 +13,11 @@
 
 const browser = (/Firefox/.test(navigator.userAgent)) ? 'firefox' : 'chrome';
 
-const replaceFont = ['Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '微軟正黑體', 'Noto Sans CJK SC', 'PingFang SC',
+const replaceFont = ['Noto Sans CJK SC', 'PingFang SC',
+                     'Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '微軟正黑體', 'Meiryo UI', 'Malgun Gothic',
                      'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR',
                      'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display',
-                     'SimSun','宋体', 'SimHei', '黑体'];
+                     'SimSun', '宋体', 'SimHei', '黑体', 'STXihei', '华文细黑'];
 
 if (browser === 'firefox') {
 
