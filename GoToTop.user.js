@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         网页回到顶部
 // @namespace    https://tampermonkey.net/
-// @version      0.1.7
+// @version      0.1.8
 // @description  在网页右边增加回到顶部的按钮。Chrome默认始终显示滚动条，显示位置相比Firefox偏左。
 // @author       T_H_R
 // @match        *://*/*
@@ -18,7 +18,7 @@ GM_addStyle(`@media(prefers-color-scheme:light){.btn_c_GM{background-color:#f7f7
 @media(prefers-color-scheme:dark){.btn_c_GM{background-color:#333 !important;color:white !important;}}`);
 
 GM_addStyle(`#btn_p_GM{all:initial;display:inline-block;font-size:12px !important;
-  writing-mode:vertical-rl;letter-spacing:.3em;cursor:pointer;position:fixed;bottom:20%;right:1em;z-index:1000}
+  writing-mode:vertical-rl;letter-spacing:.3em;cursor:pointer;position:fixed;bottom:20%;right:max(0px, (1em - 100vw + 100%));z-index:1000}
   .btn_c_GM{block-size:auto !important;border:.1em solid grey;border-radius:.3em;padding:.3em;position:relative}
   #btn_2_GM{right:-.1em}`); //边框重叠
 
