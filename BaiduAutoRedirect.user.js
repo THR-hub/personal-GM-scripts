@@ -14,11 +14,7 @@
 
 (function() {
     'use strict';
-    var ua_info=navigator.userAgent;
-    if(/(?:Windows|Linux|Macintosh)/.test(ua_info))
-    {
-        var present_url=location.href;
-        var jump_to_url=(present_url[4]==="s")?(present_url.substring(0,8)+"www"+present_url.substring(9)):(present_url.substring(0,7)+"www"+present_url.substring(8));
-        window.location.href=jump_to_url;
+    if (/(?:Windows|Linux|Macintosh)/.test(navigator.userAgent)) {
+        window.location.href = location.href.replace(/m\.baidu\.com/, 'www.baidu.com');
     }
 })();
