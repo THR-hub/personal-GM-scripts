@@ -18,7 +18,7 @@ const browser = (/Firefox/.test(navigator.userAgent)) ? 'firefox' : 'chrome';
 if (browser === 'firefox') {
 
   const replaceFont = ['Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei',
-    'Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '微軟正黑體', 'Meiryo UI', 'Malgun Gothic',
+    'Microsoft YaHei', '微软雅黑', 'Microsoft YaHei UI', 'Microsoft JhengHei', '微軟正黑體', 'Meiryo UI', 'Malgun Gothic',
     'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR',
     'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display', 'Tahoma', 'Helvetica', // Note that Helvetica is equal to Arial on Windows, look at HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes
     'SimHei', '黑体', 'STXihei', '华文细黑',
@@ -31,7 +31,7 @@ if (browser === 'firefox') {
 
 else if (browser === 'chrome') {
 
-  const replaceFont = ['Arial', 'Helvetica', 'Segoe UI', 'SF Pro Display', 'Roboto', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans JP'];
+  const replaceFont = ['Arial', 'Helvetica', 'Segoe UI', 'SF Pro Display', 'Roboto', 'Microsoft YaHei', 'Microsoft YaHei UI', 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans JP'];
 
   // 判断默认字体，只能获取到默认字体，这里假定默认字体与sans-serif相同，并且不替换serif
   // 仅适用Chrome，在Firefox上返回的结果是sans-serif或serif
