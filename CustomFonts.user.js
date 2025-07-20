@@ -2,11 +2,11 @@
 // @name        网页字体替换
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
-// @version     1.4
+// @version     1.5
 // @author      T_H_R
 // @grant       GM_getValue
 // @grant       GM_addStyle
-// @description 禁止网站使用某些字体，依赖某些未定义行为。已知问题：Firefox上网页字体设为system-ui时无效；Firefox上无法替换Arial；默认为微软雅黑时无法替换雅黑（无影响）；Chrome支持不完善；Safari未作测试。
+// @description 禁止网站使用某些字体，依赖某些未定义行为。已知问题：Firefox上网页字体设为system-ui时无效；Chrome支持不完善；Safari未作测试。
 // ==/UserScript==
 
 'use strict';
@@ -18,14 +18,12 @@ if (browser === 'firefox') {
   const replaceFont = ['Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei',
     'Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '微軟正黑體', 'Meiryo UI', 'Malgun Gothic',
     'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR',
-    'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display', 'Tahoma',
+    'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display', 'Tahoma', 'Helvetica', // Note that Helvetica is equal to Arial on Windows, look at HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes
     'SimHei', '黑体', 'STXihei', '华文细黑',
     'SimSun', '宋体',
     'Consolas', 'Menlo', 'Lucida Console', 'Courier', 'Courier New'];
 
   GM_addStyle(replaceFont.map((font) => `@font-face{font-family:"${font}";src:local("null")}`).join('\n'));
-
-  if (/^https:\/\/.+\.zhihu.com\//.test(document.URL)) GM_addStyle('body{font-family:sans-serif}') // 知乎不知道为什么还是会用Arial显示，先凑合着
 
 }
 
