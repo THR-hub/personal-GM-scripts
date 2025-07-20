@@ -6,20 +6,22 @@
 // @author      T_H_R
 // @grant       GM_getValue
 // @grant       GM_addStyle
-// @description 禁止网站使用某些字体，依赖某些未定义行为。\n已知问题：Firefox上网页字体设为system-ui时无效；Firefox上无法替换Arial；默认为微软雅黑时无法替换雅黑（无影响）；Chrome支持不完善；Safari未作测试。
+// @description 禁止网站使用某些字体，依赖某些未定义行为。已知问题：Firefox上网页字体设为system-ui时无效；Firefox上无法替换Arial；默认为微软雅黑时无法替换雅黑（无影响）；Chrome支持不完善；Safari未作测试。
 // ==/UserScript==
 
 'use strict';
 
 const browser = (/Firefox/.test(navigator.userAgent)) ? 'firefox' : 'chrome';
 
-const replaceFont = ['Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei',
-                     'Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '微軟正黑體', 'Meiryo UI', 'Malgun Gothic',
-                     'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR',
-                     'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display', 'Tahoma',
-                     'SimSun', '宋体', 'SimHei', '黑体', 'STXihei', '华文细黑']; // 理论上Chrome不应替换宋体，暂时不改
-
 if (browser === 'firefox') {
+
+  const replaceFont = ['Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei',
+    'Microsoft YaHei', '微软雅黑', 'Microsoft JhengHei', '微軟正黑體', 'Meiryo UI', 'Malgun Gothic',
+    'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR',
+    'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display', 'Tahoma',
+    'SimHei', '黑体', 'STXihei', '华文细黑',
+    'SimSun', '宋体',
+    'Consolas', 'Menlo', 'Lucida Console', 'Courier', 'Courier New'];
 
   GM_addStyle(replaceFont.map((font) => `@font-face{font-family:"${font}";src:local("null")}`).join('\n'));
 
@@ -29,7 +31,9 @@ if (browser === 'firefox') {
 
 else if (browser === 'chrome') {
 
-  // 判断默认字体
+  const replaceFont = ['Arial', 'Segoe UI', 'SF Pro Display', 'Roboto', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans JP'];
+
+  // 判断默认字体，只能获取到默认字体，这里假定默认字体与sans-serif相同，并且不替换serif
   // 仅适用Chrome，在Firefox上返回的结果是sans-serif或serif
   const tempElement = document.createElement('div');
   tempElement.style.fontFamily = 'initial';
