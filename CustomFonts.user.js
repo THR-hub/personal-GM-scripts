@@ -29,7 +29,7 @@ if (browser === 'firefox') {
 
 else if (browser === 'chrome') {
 
-  const replaceFont = ['Arial', 'Segoe UI', 'SF Pro Display', 'Roboto', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans JP'];
+  const replaceFont = ['Arial', 'Helvetica', 'Segoe UI', 'SF Pro Display', 'Roboto', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans JP'];
 
   // 判断默认字体，只能获取到默认字体，这里假定默认字体与sans-serif相同，并且不替换serif
   // 仅适用Chrome，在Firefox上返回的结果是sans-serif或serif
