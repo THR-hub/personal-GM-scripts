@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name        网页字体替换
+// @name:en     Replace Web Fonts
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @version     1.5
@@ -7,6 +8,7 @@
 // @grant       GM_getValue
 // @grant       GM_addStyle
 // @description 禁止网站使用某些字体，依赖某些未定义行为。已知问题：Firefox上网页字体设为system-ui时无效；Chrome支持不完善；Safari未作测试。
+// @description:en Prevent website from using some of fonts. Know issue: When website font set to system-ui the script doesnot work; On Chrome the script doesnot work perfect; The script is not tested on Safari.
 // ==/UserScript==
 
 'use strict';
