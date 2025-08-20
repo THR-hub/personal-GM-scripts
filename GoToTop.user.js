@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         网页回到顶部
-// @namespace    https://tampermonkey.net/
+// @namespace    https://github.com/THR-hub/personal-GM-scripts
 // @version      0.1.8
 // @description  在网页右边增加回到顶部的按钮。Chrome默认始终显示滚动条，显示位置相比Firefox偏左。
 // @author       T_H_R

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         知乎优化（未完成）
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/THR-hub/personal-GM-scripts
 // @version      2025-08-19
 // @description  目前已有功能：修改标题去掉消息数，去除高亮搜索，恢复旧版[惊喜]表情。
 // @author       T_H_R

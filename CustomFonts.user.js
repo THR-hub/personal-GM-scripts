@@ -2,7 +2,7 @@
 // @name        网页字体替换
 // @name:zh     网页字体替换
 // @name:en     Replace Web Fonts
-// @namespace   Violentmonkey Scripts
+// @namespace   https://github.com/THR-hub/personal-GM-scripts
 // @match       *://*/*
 // @version     1.5
 // @author      T_H_R

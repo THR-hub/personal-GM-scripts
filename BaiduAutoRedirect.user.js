@@ -8,8 +8,8 @@
 // @license      MIT
 // @grant        none
 // @run-at       document-start
-// @supportURL   https://github.com/THR-hub/baidu_redirect_according_to_UA/issues
-// @namespace    https://github.com/THR-hub/baidu_redirect_according_to_UA
+// @supportURL   https://github.com/THR-hub/personal-GM-scripts/issues
+// @namespace    https://github.com/THR-hub/personal-GM-scripts
 // ==/UserScript==
 
 (function() {
