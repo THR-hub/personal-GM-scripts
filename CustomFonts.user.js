@@ -8,13 +8,13 @@
 // @author      T_H_R
 // @grant       GM_getValue
 // @grant       GM_addStyle
-// @noframes
 // @description:zh 禁止网站使用某些字体，依赖某些未定义行为。已知问题：Firefox上网页字体设为system-ui时无效；Chrome支持不完善；Safari未作测试。
 // @description:en Prevent website from using some of fonts. Know issue: When website font set to system-ui the script doesnot work; On Chrome the script doesnot work perfect; The script is not tested on Safari.
 // @license     MIT
 // ==/UserScript==
 
 'use strict';
+
 
 const browser = (/Firefox/.test(navigator.userAgent)) ? 'firefox' : 'chrome';
 
@@ -23,7 +23,7 @@ if (browser === 'firefox') {
   const replaceFont = ['Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei',
     'Microsoft YaHei', '微软雅黑', 'Microsoft YaHei UI', 'Microsoft JhengHei', '微軟正黑體', 'Meiryo UI', 'Malgun Gothic',
     'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR', 'Source Han Sans SC',
-    'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display', 'Tahoma', 'Helvetica', 'Georgia', 'Verdana', // Note that Helvetica is equal to Arial on Windows, look at HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes
+    'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display', 'Tahoma', 'Helvetica', 'Georgia', 'Verdana', 'Trebuchet MS', // Note that Helvetica is equal to Arial on Windows, look at HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes
     'SimHei', '黑体', 'STXihei', '华文细黑', 'DengXian',
     'SimSun', '宋体',
     'Consolas', 'Menlo', 'Lucida Console', 'Courier', 'Courier New', 'DejaVu Sans Mono'];
@@ -55,8 +55,10 @@ if (shadow?.enable) {
   GM_addStyle(`* {-webkit-text-stroke-width: ${shadow.stroke};text-shadow: ${shadow.offsetX} ${shadow.offsetY} ${shadow.blur} ${shadow.color};}`);
 }
 
-/*const showLanguage = document.createElement('div');
-showLanguage.style = `all:initial;position:fixed;bottom:0;left:0;font-size:12px;background:#f7f7f7;
-border:1px silver;border-style:solid solid none none;border-top-right-radius:3px;`;
-showLanguage.innerHTML = document.documentElement.lang || `<span style='font-family:monospace'>lang</span> Not Set`;
-document.body.appendChild(showLanguage);*/
+if (window.self === window.top) {
+  const showLanguage = document.createElement('div');
+  showLanguage.style = `all:initial;position:fixed;bottom:0;left:0;font-size:12px;background:#f7f7f7;
+    border:1px silver;border-style:solid solid none none;border-top-right-radius:3px;`;
+  showLanguage.innerHTML = document.documentElement.lang || `<span style='font-family:monospace'>lang</span> Not Set`;
+  document.body.appendChild(showLanguage);
+}
