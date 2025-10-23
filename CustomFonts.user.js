@@ -8,25 +8,35 @@
 // @author      T_H_R
 // @grant       GM_getValue
 // @grant       GM_addStyle
-// @description:zh 禁止网站使用某些字体，依赖某些未定义行为。已知问题：Firefox上网页字体设为system-ui时无效；Chrome支持不完善；Safari未作测试。
-// @description:en Prevent website from using some of fonts. Know issue: When website font set to system-ui the script doesnot work; On Chrome the script doesnot work perfect; The script is not tested on Safari.
+// @description:zh 禁止网站使用某些字体，依赖某些未定义行为。已知问题：Firefox上网页字体设为system-ui时无效；Safari未作测试。
+// @description:en Prevent website from using some of fonts. Know issue: When website font set to system-ui the script doesnot work; The script is not tested on Safari.
 // @license     MIT
 // ==/UserScript==
 
 'use strict';
 
 
-const browser = (/Firefox/.test(navigator.userAgent)) ? 'firefox' : 'chrome';
+// Tampermonkey seems don't provide GM_info.platform, add ? for tamporary solution
+const browser = GM_info.platform?.browserName === "Firefox" ? 'firefox' : 'chrome';
 
 if (browser === 'firefox') {
 
-  const replaceFont = ['Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei',
+  const replaceFont = [
+    // 常见
+    'Noto Sans CJK SC', 'PingFang SC',
     'Microsoft YaHei', '微软雅黑', 'Microsoft YaHei UI', 'Microsoft JhengHei', '微軟正黑體', 'Meiryo UI', 'Malgun Gothic',
+    // 罕见
     'Noto Sans SC', 'Noto Sans JP', 'Noto Sans KR', 'Source Han Sans SC',
-    'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display', 'Tahoma', 'Helvetica', 'Georgia', 'Verdana', 'Trebuchet MS', // Note that Helvetica is equal to Arial on Windows, look at HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes
-    'SimHei', '黑体', 'STXihei', '华文细黑', 'DengXian',
+    'SimHei', '黑体', 'STXihei', '华文细黑', 'DengXian', 'WenQuanYi Micro Hei', 'WenQuanYi Zen Hei', 'WenQuanYi Zen Hei Sharp',
+    'HarmonyOS Sans SC', '更纱黑体 SC',
+    'Yu Gothic', '游ゴシック', 'Yu Gothic Medium', '游ゴシック Medium', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', 'MS PGothic',
+    'Ebrima',
+    // 宋体
     'SimSun', '宋体',
-    'Consolas', 'Menlo', 'Lucida Console', 'Courier', 'Courier New', 'DejaVu Sans Mono'];
+    // 西文
+    'Arial', 'Segoe UI', 'Roboto', 'SF Pro Display', 'Tahoma', 'Helvetica', 'Georgia', 'Verdana', 'Trebuchet MS', 'DejaVu Sans', /*'Roboto',*/ // Note that Helvetica is equal to Arial on Windows, see HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes
+    // 等宽
+    'Consolas', 'Menlo', 'Lucida Console', 'Courier', 'Courier New', 'DejaVu Sans Mono', 'SF Mono'];
 
   GM_addStyle(replaceFont.map((font) => `@font-face{font-family:"${font}";src:local("null")}`).join('\n'));
 
@@ -59,6 +69,6 @@ if (window.self === window.top) {
   const showLanguage = document.createElement('div');
   showLanguage.style = `all:initial;position:fixed;bottom:0;left:0;font-size:12px;background:#f7f7f7;
     border:1px silver;border-style:solid solid none none;border-top-right-radius:3px;`;
-  showLanguage.innerHTML = document.documentElement.lang || `<span style='font-family:monospace'>lang</span> Not Set`;
+  showLanguage.innerHTML = document.documentElement.lang || `<code>lang</code> Not Set`;
   document.body.appendChild(showLanguage);
 }
