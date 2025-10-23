@@ -17,9 +17,9 @@
 
 
 // Tampermonkey seems don't provide GM_info.platform, add ? for tamporary solution
-const browser = GM_info.platform?.browserName === "Firefox" ? 'firefox' : 'chrome';
+requestIdleCallback(() => { GM_info.platform?.browserName === "Firefox" ? replaceFirefox() : replaceChrome(); });
 
-if (browser === 'firefox') {
+function replaceFirefox() {
 
   const replaceFont = [
     // 常见
@@ -42,7 +42,7 @@ if (browser === 'firefox') {
 
 }
 
-else if (browser === 'chrome') {
+function replaceChrome() {
 
   const replaceFont = ['Arial', 'Helvetica', 'Segoe UI', 'SF Pro Display', 'Roboto', 'Microsoft YaHei', 'Microsoft YaHei UI', 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans JP'];
 
