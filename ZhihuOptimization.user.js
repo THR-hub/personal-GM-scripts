@@ -38,12 +38,12 @@ function clearHighlightLink() { // 去除相关搜索
     const observer = new MutationObserver(() => {
         observer.disconnect();
         //console.log('DOM Changed');
-        setTimeout(() => {
+        requestIdleCallback(() => {
             //let all = Array.from(document.getElementsByClassName('RichContent-EntityWord'));
             let all = document.querySelectorAll('.RichContent-EntityWord');
             all.forEach((e) => e.parentElement.outerHTML = e.innerText);
             observer.observe(document.body, { childList: true, subtree: true, attribute: false });
-        }, 0);
+        });
     });
     observer.observe(document.body, { childList: true, subtree: true, attribute: false });
 
@@ -54,7 +54,7 @@ function oldStyleSurpriseSticker() { // 替换[惊喜]表情为旧版
     const observer = new MutationObserver(() => {
         observer.disconnect();
         //console.log('DOM Changed');
-        setTimeout(() => {
+        requestIdleCallback(() => {
             //let all = Array.from(document.getElementsByClassName('sticker'));
             let all = document.querySelectorAll('.sticker');
             all.forEach((e) => {
@@ -63,7 +63,7 @@ function oldStyleSurpriseSticker() { // 替换[惊喜]表情为旧版
                 }
             });
             observer.observe(document.body, { childList: true, subtree: true, attribute: false });
-        }, 0);
+        });
     });
     observer.observe(document.body, { childList: true, subtree: true, attribute: false });
 
