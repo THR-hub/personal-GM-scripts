@@ -10,14 +10,20 @@
 // @grant        none
 // ==/UserScript==
 
+addStyle = (style) => {
+  const temp=document.createElement('style');temp.innerText=style;document.head.appendChild(temp);
+};
+
 (function () {
     'use strict';
     clearTitles();
     clearHighlightLink();
     oldStyleSurpriseSticker();
+    // see https://www.zhihu.com/question/554983886/answer/2687877961
+    addStyle(`@-moz-document url-prefix(){body{overflow-anchor:none}}`);
 })();
 
-// 有参考 https://greasyfork.org/scripts/419081
+// 参考 https://greasyfork.org/scripts/419081
 function clearTitles() { // 去除标题消息提示
 
     const observer = new MutationObserver(() => {
