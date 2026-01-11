@@ -10,12 +10,13 @@
 // @grant        none
 // ==/UserScript==
 
-addStyle = (style) => {
+'use strict';
+
+let addStyle = (style) => {
   const temp=document.createElement('style');temp.innerText=style;document.head.appendChild(temp);
 };
 
 (function () {
-    'use strict';
     clearTitles();
     clearHighlightLink();
     oldStyleSurpriseSticker();
