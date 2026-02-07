@@ -66,15 +66,22 @@ const trad = "錒皚藹礙愛噯嬡璦曖靄諳銨鵪骯襖奧媼驁鰲壩罷鈀
     "鯴鱝鯿鰠鰵鱅鞽韝齇";
 // #endregion
 
-const s2t = new Map();
-const t2s = new Map();
+let s2t, t2s;
 
-for (let i = 0; i < simp.length; ++i) {
-    s2t.set(simp[i], trad[i]);
-    t2s.set(trad[i], simp[i]);
+function charMap() {
+    if (s2t || t2s) return;
+    s2t = new Map();
+    t2s = new Map();
+    // 直接索引字符串可能导致生僻字截断
+    const sArr = Array.from(simp), tArr = Array.from(trad);
+    for (let i = 0; i < simp.length; ++i) {
+        s2t.set(sArr[i], tArr[i]);
+        t2s.set(tArr[i], sArr[i]);
+    }
 }
 
 function convert(str) { // 字符串处理
+    charMap();
     const arr = Array.from(str);
     for (const [i, c] of arr.entries()) {
         /* 两种方法在Chrome上相差不大，被注释掉的可能还更快一点
@@ -90,7 +97,6 @@ function convert(str) { // 字符串处理
         } else if (t2s.has(c)) {
             arr[i] = t2s.get(c);
         }
-
     }
     return arr.join('');
 }
