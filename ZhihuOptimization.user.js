@@ -13,13 +13,12 @@
 'use strict';
 
 let addStyle = (style) => {
-  const temp=document.createElement('style');temp.innerText=style;document.head.appendChild(temp);
+    const temp = document.createElement('style'); temp.innerText = style; document.head.appendChild(temp);
 };
 
 (function () {
     clearTitles();
-    clearHighlightLink();
-    oldStyleSurpriseSticker();
+    createObserver();
     // see https://www.zhihu.com/question/554983886/answer/2687877961
     addStyle(`@-moz-document url-prefix(){body{overflow-anchor:none}}`);
 })();
@@ -36,33 +35,36 @@ function clearTitles() { // 去除标题消息提示
 
 function clearHighlightLink() { // 去除相关搜索
 
-    const observer = new MutationObserver(() => {
-        observer.disconnect();
-        //console.log('DOM Changed');
-        requestIdleCallback(() => {
-            //let all = Array.from(document.getElementsByClassName('RichContent-EntityWord'));
-            let all = document.querySelectorAll('.RichContent-EntityWord');
-            all.forEach((e) => e.parentElement.outerHTML = e.innerText);
-            observer.observe(document.body, { childList: true, subtree: true, attribute: false });
-        });
-    });
-    observer.observe(document.body, { childList: true, subtree: true, attribute: false });
+    replace('.RichContent-EntityWord', (e) => e.parentElement.outerHTML = e.innerText);
 
 }
 
 function oldStyleSurpriseSticker() { // 替换[惊喜]表情为旧版
 
+    replace('.sticker',
+        (e) => {
+            if (e.alt === '[惊喜]' && e.src.at(-5) === '3') { // 新版为 https://pic1.zhimg.com/v2-5c9b7521eb16507c9d2f747f3a32a813.png
+                e.src = 'https://pic1.zhimg.com/v2-3846906ea3ded1fabbf1a98c891527fb.png';
+            }
+        }
+    );
+
+}
+
+const replace = (selector, callback) => {
+    //let all = Array.from(document.getElementsByClassName(selector));
+    let all = document.querySelectorAll(selector);
+    all.forEach(callback);
+};
+
+function createObserver() { // 将重复监听操作合并
+
     const observer = new MutationObserver(() => {
         observer.disconnect();
         //console.log('DOM Changed');
         requestIdleCallback(() => {
-            //let all = Array.from(document.getElementsByClassName('sticker'));
-            let all = document.querySelectorAll('.sticker');
-            all.forEach((e) => {
-                if (e.alt === '[惊喜]' && e.src.at(-5) === '3') { // 新版为 https://pic1.zhimg.com/v2-5c9b7521eb16507c9d2f747f3a32a813.png
-                    e.src = 'https://pic1.zhimg.com/v2-3846906ea3ded1fabbf1a98c891527fb.png';
-                }
-            });
+            clearHighlightLink();
+            oldStyleSurpriseSticker();
             observer.observe(document.body, { childList: true, subtree: true, attribute: false });
         });
     });
