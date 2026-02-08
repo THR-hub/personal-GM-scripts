@@ -35,7 +35,7 @@ function clearTitles() { // 去除标题消息提示
 
 function clearHighlightLink() { // 去除相关搜索
 
-    replace('.RichContent-EntityWord', (e) => e.parentElement.outerHTML = e.innerText);
+    replace('.RichContent-EntityWord', (e) => e.parentElement.outerHTML = e.firstChild?.outerHTML ?? e.firstChild.textContent);
 
 }
 
