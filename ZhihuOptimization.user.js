@@ -12,7 +12,7 @@
 
 'use strict';
 
-let addStyle = (style) => {
+const addStyle = (style) => {
     const temp = document.createElement('style'); temp.innerText = style; document.head.appendChild(temp);
 };
 
@@ -33,38 +33,33 @@ function clearTitles() { // 去除标题消息提示
 
 }
 
-function clearHighlightLink() { // 去除相关搜索
+const observeList = new Map([
 
-    replace('.RichContent-EntityWord', (e) => e.parentElement.outerHTML = e.firstChild?.outerHTML ?? e.firstChild.textContent);
+    // 去除相关搜索
+    ['.RichContent-EntityWord', (e) => e.parentElement.outerHTML = e.firstChild?.outerHTML ?? e.firstChild.textContent],
 
-}
-
-function oldStyleSurpriseSticker() { // 替换[惊喜]表情为旧版
-
-    replace('.sticker',
-        (e) => {
-            if (e.alt === '[惊喜]' && e.src.at(-5) === '3') { // 新版为 https://pic1.zhimg.com/v2-5c9b7521eb16507c9d2f747f3a32a813.png
-                e.src = 'https://pic1.zhimg.com/v2-3846906ea3ded1fabbf1a98c891527fb.png';
-            }
+    // 替换[惊喜]表情为旧版
+    ['.sticker', (e) => {
+        if (e.alt === '[惊喜]' && e.src.at(-5) === '3') { // 新版为 https://pic1.zhimg.com/v2-5c9b7521eb16507c9d2f747f3a32a813.png
+            e.src = 'https://pic1.zhimg.com/v2-3846906ea3ded1fabbf1a98c891527fb.png';
         }
-    );
+    }]
 
-}
-
-const replace = (selector, callback) => {
-    //let all = Array.from(document.getElementsByClassName(selector));
-    let all = document.querySelectorAll(selector);
-    all.forEach(callback);
-};
+]);
 
 function createObserver() { // 将重复监听操作合并
+
+    function replace(selector, callback) {
+        //let all = Array.from(document.getElementsByClassName(selector));
+        let all = document.querySelectorAll(selector);
+        all.forEach(callback);
+    };
 
     const observer = new MutationObserver(() => {
         observer.disconnect();
         //console.log('DOM Changed');
         requestIdleCallback(() => {
-            clearHighlightLink();
-            oldStyleSurpriseSticker();
+            observeList.forEach((callback, selector) => replace(selector, callback));
             observer.observe(document.body, { childList: true, subtree: true, attribute: false });
         });
     });
