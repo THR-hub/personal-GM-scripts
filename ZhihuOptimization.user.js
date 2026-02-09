@@ -36,7 +36,9 @@ function clearTitles() { // 去除标题消息提示
 const observeList = new Map([
 
     // 去除相关搜索
-    ['.RichContent-EntityWord', (e) => e.parentElement.outerHTML = e.firstChild?.outerHTML ?? e.firstChild.textContent],
+    ['.RichContent-EntityWord', (e) => // 高亮有三种情况：下划线、下划线+段首、非下划线，下划线在段首时firstChild是空白文本
+        e.parentElement.outerHTML = e.firstChild.nodeValue || e.firstElementChild.outerHTML
+    ],
 
     // 替换[惊喜]表情为旧版
     ['.sticker', (e) => {
