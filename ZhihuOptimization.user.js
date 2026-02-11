@@ -62,9 +62,8 @@ function createObserver() { // 将重复监听操作合并
         //console.log('DOM Changed');
         requestIdleCallback(() => {
             observeList.forEach((callback, selector) => replace(selector, callback));
-            observer.observe(document.body, { childList: true, subtree: true, attribute: false });
+            observer.observe(document.body, { childList: true, subtree: true, attributes: false });
         });
     });
-    observer.observe(document.body, { childList: true, subtree: true, attribute: false });
-
+    observer.observe(document.body, { childList: true, subtree: true, attributes: false });
 }
