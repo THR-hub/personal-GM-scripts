@@ -42,8 +42,11 @@ const observeList = new Map([
 
     // 替换[惊喜]表情为旧版
     ['.sticker', (e) => {
-        if (e.alt === '[惊喜]' && e.src.at(-5) === '3') { // 新版为 https://pic1.zhimg.com/v2-5c9b7521eb16507c9d2f747f3a32a813.png
-            e.src = 'https://pic1.zhimg.com/v2-3846906ea3ded1fabbf1a98c891527fb.png';
+        switch (e.alt) { // 用GM_webRequest替换`https://unpkg.zhimg.com/@cfe/emoticon@1.5.0/lib/emoticon.js`更方便，但只有Tampermonkey+Firefox支持
+            case '[惊喜]':
+                e.src = 'https://pic1.zhimg.com/v2-3846906ea3ded1fabbf1a98c891527fb.png'; break;
+            case '[哇]':
+                e.src = 'https://pic1.zhimg.com/v2-70c38b608df613d862ee0140dcb26465.png';
         }
     }]
 
