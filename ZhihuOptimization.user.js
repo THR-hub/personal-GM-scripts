@@ -33,25 +33,6 @@ function clearTitles() { // 去除标题消息提示
 
 }
 
-const observeList = new Map([
-
-    // 去除相关搜索
-    ['.RichContent-EntityWord', (e) => // 高亮有三种情况：下划线、下划线+段首、非下划线，下划线在段首时firstChild是空白文本
-        e.parentElement.outerHTML = e.firstChild.nodeValue || e.firstElementChild.outerHTML
-    ],
-
-    // 替换[惊喜]表情为旧版
-    ['.sticker', (e) => {
-        switch (e.alt) { // 用GM_webRequest替换`https://unpkg.zhimg.com/@cfe/emoticon@1.5.0/lib/emoticon.js`更方便，但只有Tampermonkey+Firefox支持
-            case '[惊喜]':
-                e.src = 'https://pic1.zhimg.com/v2-3846906ea3ded1fabbf1a98c891527fb.png'; break;
-            case '[哇]':
-                e.src = 'https://pic1.zhimg.com/v2-70c38b608df613d862ee0140dcb26465.png';
-        }
-    }]
-
-]);
-
 function createObserver() { // 将重复监听操作合并
 
     function replace(selector, callback) {
@@ -63,10 +44,22 @@ function createObserver() { // 将重复监听操作合并
     const observer = new MutationObserver(() => {
         observer.disconnect();
         //console.log('DOM Changed');
-        requestIdleCallback(() => {
-            observeList.forEach((callback, selector) => replace(selector, callback));
-            observer.observe(document.body, { childList: true, subtree: true, attributes: false });
+
+        // 去除相关搜索
+        replace('.RichContent-EntityWord', (e) => // 高亮有三种情况：下划线、下划线+段首、非下划线，下划线在段首时firstChild是空白文本
+            e.parentElement.outerHTML = e.firstChild.nodeValue || e.firstElementChild.outerHTML);
+
+        // 替换[惊喜]表情为旧版
+        replace('.sticker', (e) => {
+            switch (e.alt) { // 用GM_webRequest替换`https://unpkg.zhimg.com/@cfe/emoticon@1.5.0/lib/emoticon.js`更方便，但只有Tampermonkey+Firefox支持
+                case '[惊喜]':
+                    e.src = 'https://pic1.zhimg.com/v2-3846906ea3ded1fabbf1a98c891527fb.png'; break;
+                case '[哇]':
+                    e.src = 'https://pic1.zhimg.com/v2-70c38b608df613d862ee0140dcb26465.png';
+            }
         });
+
+        observer.observe(document.body, { childList: true, subtree: true, attributes: false });
     });
     observer.observe(document.body, { childList: true, subtree: true, attributes: false });
 
