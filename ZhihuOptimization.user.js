@@ -12,7 +12,7 @@
 
 'use strict';
 
-const addStyle = (style) => {
+function addStyle(style) {
     const temp = document.createElement('style'); temp.innerText = style; document.head.appendChild(temp);
 };
 
@@ -69,4 +69,5 @@ function createObserver() { // 将重复监听操作合并
         });
     });
     observer.observe(document.body, { childList: true, subtree: true, attributes: false });
+
 }
